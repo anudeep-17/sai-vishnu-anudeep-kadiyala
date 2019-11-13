@@ -1,0 +1,136 @@
+/**
+  DESCRIPTION : This is a application which applies discount on specific days for grocery purchase and calculates total and per product price to 2 decimal places and prints in ..dollar..cents format
+*/
+import java.util.*;//import statement for scanner class
+
+
+public class p1
+{
+  public static void main(String [] args)
+  {
+    
+    Scanner keyboard = new Scanner(System.in);//keyboard object is created for scanner class
+    System.out.println("WELCOME TO THE GROCERY STORE :");//opening statement
+    System.out.println("please enter the today's day: ");//this is to promt the user to enter todays day and hoping that day wont change for every input this is not included in while loop 
+    String day = keyboard.nextLine();//this takes the day input from user
+    restart://label that is used so that if user wants to continue it will start from here
+    while (true)//this is used to make it infinite loop so that is will break only if the user says stop
+    {
+    System.out.println("please enter product name:");//promts the user to enter prodct name 
+    String product = keyboard.nextLine();//this to take the input 
+    System.out.println("enter the price:");//promts the user to enter the price 
+    double price = Double.parseDouble(keyboard.nextLine());//this is to take the input 
+    System.out.println("please enter number of products:");//promts the user to enter number of products
+    int numberofproducts =Integer.parseInt(keyboard.nextLine());//this takes input
+    double price2=0;//this is variable used in manual rounding and currency printing
+    int price3=0;//this is variable used in manual rounding and currency printing
+    double price4=0;//this is variable used in manual rounding and currency printing
+    int price5=0;//this is variable used in manual rounding and currency printing
+    if (day.equalsIgnoreCase("monday") || day.equalsIgnoreCase("wednesday") || day.equalsIgnoreCase("friday"))//this is a if condition for monday , wednesday and friday with no discount
+      {
+       System.out.println("there is no discount applicable");//this prints that there is no discount applicable
+       price2 = price;//this is to calculate per product
+       price3 = (int) (price*numberofproducts);//this eliminate the decimal so that it can be used to print for dollar value
+       price4 = ((price*numberofproducts) % 1)*100;//this will take the decimal part out so that it can be rounded 
+       price5 = (int) price4;//this will take the decimal part out so that it can be rounded 
+      }
+    else if (day.equalsIgnoreCase("thursday") || day.equalsIgnoreCase("tuesday"))//this if condition for thursday and tuesday with 10% discount on every three
+      {
+      if(numberofproducts == 3)//this the if condition where the number of products are 3 only 
+      {
+       System.out.println("there is a discount that is applicable" );
+       price = (3 * price) * (0.90);//this calculates price with discount for 3 products
+       price2 = price/3;//this is to calculate per product
+       price3 = (int) price;//this eliminate the decimal so that it can be used to print for dollar value
+       price4 = (price - price3)*100;//this will take the decimal part out so that it can be rounded 
+       price5 = (int) price4;//this will take the decimal part out so that it can be rounded 
+      }
+    else if (numberofproducts > 3)//this is the if condition for number of products greater than three 
+      {
+       int newnumber = (numberofproducts / 3);//this calculats on how many the discount is applicable 
+       int newleftout = (numberofproducts % 3);//this is to find out that is there any product on which discount wont apply
+       price = (((newnumber * 3)* price )*0.90 ) + (newleftout * price);//this calculates the price
+       price2 = price/numberofproducts;//this is to calculate per product
+       System.out.println("you get discount on every three products");//prints this sayong discount is on every three products
+       price3 = (int) price;//this eliminate the decimal so that it can be used to print for dollar value
+       price4 = (price - price3)*100 ;//this will take the decimal part out so that it can be rounded 
+       price5 = (int) price4;//this will take the decimal part out so that it can be rounded 
+      }
+    else
+      { 
+       System.out.println("you have no discount since you are buying less than 3 ");//if products less than three it says no discount ois applicable
+      price3 = (int) price;
+      price4 = (price3 - price4)*100;
+      price5 = (int) price4;
+      }
+      }
+    else if (day.equalsIgnoreCase("saturday")|| day.equalsIgnoreCase("sunday") )//if statement for saturday and sunday with buy 2 get 1 offer
+      {
+      if(numberofproducts == 2)//if the number of products are exactly 2
+      {
+        System.out.println( "you have offer for a product for free");
+        price = 2 * price ; //this calculate the price
+        price2 = price / 3 ;//this calculates per product
+        price3 = (int) price;//this will remove the decimal so that it can be rounded 
+        price4 = (price - price3)*100 ;//this will take the decimal part out so that it can be rounded 
+        price5 = (int) price4;//this will take the decimal part out so that it can be rounded 
+        
+      }
+    else if (numberofproducts > 2)//if the products are more than 2
+      {
+        int newnumber = (numberofproducts / 3);//this calculats on how many the discount is applicable 
+        int newleftout = (numberofproducts % 3);//this is to find out that is there any product on which discount wont apply
+        System.out.println(" you get " + newnumber + " products for free" );//this prints how many  products are free
+        int newnumber2 = numberofproducts-newnumber;
+        price = (newnumber2 * price);//calculate the price 
+        price2 = price/numberofproducts;//calculate per product price
+        price3 = (int) price;//this will remove the decimal so that it can be rounded 
+        price4 = (price - price3)*100 ;//this will take the decimal part out so that it can be rounded 
+        price5 = (int) price4;//this will take the decimal part out so that it can be rounded 
+      }
+    else if(numberofproducts < 2)
+      { 
+        System.out.println("you have no discount since you are buying less than 2 ");//if the entered products are less than 2 this is printed
+        price3 = (int) price;//this will take the whole number part of the price
+        price4 = (price - price3)*100;//this will take the decimal part of the price 
+        price5 = (int) price4;//this will take the 
+        price2 = price/numberofproducts;
+        
+      }
+      }
+    if((price4-price5) >=  0.5)//this is to round the decimal so it checks is the value greater that 0.5 
+      {
+      price5 = price5+1;//increments the value
+      
+      }
+    System.out.println("the total you have to pay is : " + price3+" dollars " +price5+ " cents");//prints the total in the form of dollars and cents
+    price3 = (int)price2;//this will take the whole number part
+    price4 = (price2-price3)*100;//this will take the decimal part 
+    price5 = (int) price4;//this is round the decimal 
+    if((price4-price5) >= 0.5)//this check of the decimal is greater than 0.5
+      {
+      price5 = price5+1; //increments if the comdition is true 
+      }
+    System.out.println("the total you have to pay per product is : " + price3+" dollars " +price5+ " cents");//prints the total per product cost in the form of dollars and cents
+    System.out.println();//indentation purpouse
+    System.out.println("do you want to continue (Y/N): ");//this questions user to enter is he want to continue or not 
+    String Question = keyboard.nextLine();//this takes the input
+    if(Question.equalsIgnoreCase("N")) //if the answer for question is no
+      {
+         break;//this will break the while loop 
+      }
+    else  
+      {
+         System.out.println();//indentation purpouse to print a empty line
+         continue restart;//this will jump to the line where restart is labeled and runs back 
+      }
+   }
+ }
+}
+           
+      
+        
+      
+        
+      
+      
