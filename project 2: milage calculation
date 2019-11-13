@@ -1,0 +1,46 @@
+/**
+  DESCRIPTION : This program is used to calculate miles per gallons without considering a negative number or 0 as input
+*/
+import java.util.Scanner; //import statement for scanner class which is used to enable input from user
+
+public class alternateMiles
+
+{
+    public static void main(String[ ] args)
+
+      {
+        Scanner keyboard = new Scanner(System.in);//statement to create scanner object to read from keyword
+        double miles ;
+        double gallons;//the variable which takes 
+        double miles_per_gallon ;//declaration of variables used for storing the result \
+        System.out.println("This program will print mileage ");
+         restart : while (true)//restart is a label used with keyword continue so if the condition is falls we can make the compiler jump to this statement back. while(true)is used to know is the condition satisfied or not 
+        {
+           System.out.print("How many miles were driven?");//this will prompt the user to enter the value of mile 
+           miles = Double.parseDouble(keyboard.nextLine());//this is to take the input fom the user 
+         if (miles <0 )//if condition is used so that it shows a error message and goes back to line:11 and gets executed again if a negative number is entered
+        {
+          System.out.println(" please enter a valid number ");//thiis is error message if a value less than zero is entered
+          System.out.println();//to print a empty line for indentation purpose
+           continue restart;//continue key word in combination with the label name restart is used to prompt the compiler to go to line 11 and execute again 
+        }
+           reenter : while (true)//reenter is a label used with keyword continue so if the condition is falls we can make the compiler jump to this statement back. while(true)is used to know is the condition satisfied or not 
+        {  System.out.print("How many gallons were used?");//this will prompt the user to enter the value 
+           gallons = Double.parseDouble(keyboard.nextLine());//this is to thake the input from the user 
+        if (gallons <=0)//if condition is used so that it shows a error message and goes back to line:20 and gets executed again if a negative number or zero is entered
+        {
+          System.out.println("please enter a valid number");//thiis is error message if a value less than or equal to zero is entered
+          System.out.println();//to print a empty line for indentation purpose
+          continue reenter;//continue key word in combination with the label name reenter is used to prompt the compiler to go to line 11 and execute again 
+        }
+           miles_per_gallon = miles / gallons;//this calluculate miles per gallon by dividing them 
+           System.out.println(" The Miles-Per-Gallon used in this trip are  " + miles_per_gallon );//this prints the obtained value 
+           break restart;// this terminate the block of code and end the program if result is obtained 
+        }
+     
+        }
+     
+     
+      }
+  
+}
